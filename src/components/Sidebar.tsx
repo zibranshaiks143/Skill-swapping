@@ -10,7 +10,8 @@ import {
   LogOut,
   Zap,
   Users,
-  MessageSquare
+  MessageSquare,
+  ShieldAlert
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { clsx, type ClassValue } from 'clsx';
@@ -27,6 +28,7 @@ const navItems = [
   { icon: Users, label: 'My Mentors', href: '/dashboard/mentors' },
   { icon: Zap, label: 'Skill Matcher', href: '/dashboard/matcher' },
   { icon: Calendar, label: 'Sessions', href: '/dashboard/scheduler' },
+  { icon: ShieldAlert, label: 'Admin Panel', href: '/dashboard/admin' },
 ];
 
 
@@ -47,8 +49,14 @@ export default function Sidebar() {
       <nav className="flex-1 space-y-2">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
+          
+          // Secure the Admin Panel link
+          if (item.href === '/dashboard/admin' && user?.email !== 'zibranshaik02@gmail.com') {
+            return null;
+          }
+
           return (
-            <Link
+             <Link
               key={item.href}
               href={item.href}
               className={cn(
