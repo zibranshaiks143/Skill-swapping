@@ -34,7 +34,7 @@ const navItems = [
 
 export default function Sidebar() {
   const pathname = usePathname();
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
 
   return (
     <div className="flex flex-col h-full bg-zinc-950 border-r border-white/5 w-64 p-6 overflow-y-auto">
